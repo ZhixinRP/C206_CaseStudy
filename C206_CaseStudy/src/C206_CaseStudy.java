@@ -71,8 +71,8 @@ public class C206_CaseStudy {
 		Helper.line(80, "-");
 
 	}
-	
-	//Category menu
+	// =============================================================CATEGORY====================================================================
+	//MENU
 	public static void menuCategory() {
 		System.out.println("1. Add new Category");
 		System.out.println("2. View all Categories");
@@ -81,7 +81,7 @@ public class C206_CaseStudy {
 
 	}
 	
-	//Viewing all categories
+	//VIEW
 	public static String retrieveCategories(ArrayList<Category> listOfCategories) {
 		String output = "";
 		for (int i = 0; i < listOfCategories.size(); i++) {
@@ -97,7 +97,7 @@ public class C206_CaseStudy {
 		System.out.println(output);
 	}
 	
-	//Adding the category
+	//ADD
 	private static Category categoryName() {
 		String name = Helper.readString("Enter name for new category: ");
 		Category newCategory = new Category(name);
@@ -105,11 +105,11 @@ public class C206_CaseStudy {
 	}
 	
 	public static void addCategory(ArrayList<Category> listOfCategories, Category newCategory) {
-		listOfCategories.add(categoryName());
+		listOfCategories.add(newCategory);
 		System.out.println("Category has been added!");
 	}
 	
-	//Delete category
+	//DELETE
 	public static void categoryDeleteInput(ArrayList<Category> listOfCategories) {
 		C206_CaseStudy.viewCategory(listOfCategories);
 		String name = Helper.readString("Enter category name that you want to delete: ");
