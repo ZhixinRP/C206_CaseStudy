@@ -21,8 +21,6 @@ public class Category extends C206_CaseStudy {
 
 	public boolean isAvailableName() {
 		return availableName;
-		
-		
 	}
 
 	public void setAvailableName(boolean availableName) {
