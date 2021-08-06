@@ -3,11 +3,20 @@
 import java.util.*;
 
 public class Helper {
+<<<<<<< HEAD
 
   @SuppressWarnings("resource")
   public static String readString(String prompt) {
     System.out.print(prompt);
     return new java.util.Scanner(System.in).nextLine();
+=======
+  
+  static Scanner scan = new java.util.Scanner(System.in);
+  
+  public static String readString(String prompt) {
+    System.out.print(prompt);
+    return scan.nextLine();
+>>>>>>> branch 'master' of https://github.com/ZhixinRP/C206_CaseStudy.git
   }
 
   public static int readInt(String prompt) {
