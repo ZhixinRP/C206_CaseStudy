@@ -7,77 +7,87 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class C206_CaseStudyTest {
-	private deal d1;
-	private deal d2;
-	private ArrayList<deal> dealList;
-	private ArrayList<bid> bidList;
+	//=============Category===============
+	private Category C1;
+	private Category C2;
+	private ArrayList<Category> listOfCategories;
+	
+	
+	public C206_CaseStudyTest() {
+		super();
+	}
+	
 	@Before
 	public void setUp() throws Exception {
-		// prepare test data
-		d1 = new deal(1, "VIVO HDR-ZX605", "pear@gmail.com","buyer1@gmail.com",20.50,"4/8/2021");
-		d2 = new deal(2, "Sony HDR-CX405", "apple@gmail.com","buyer2@gmail.com", 40.50,"5/8/2021");
-		dealList = new ArrayList<deal>();
-		// Dummy bid data for add
-		bidList = new ArrayList<bid>();
-		bidList.add(new bid(1, "Sony HDR-CX405", "apple@gmail.com","buyer1@gmail.com", 20.50));
-		bidList.add(new bid(2, "Sony HDR-CX405", "apple@gmail.com","buyer2@gmail.com", 40.50));
+		// =========Category==========
+		C1 = new Category("Mouse");
+		C2 = new Category("Laptops");
+		listOfCategories = new ArrayList<Category>();
 	}
+	
+	@Test
+	 public void addCategoryTest() {
+	  // Category list is not null, so that can add a new category
+	  assertNotNull("Check if there is valid Category arraylist to add to", listOfCategories);
+	  //Given an empty list, after adding 1 item, the size of the list is 1 - normal
+	  //The item just added is as same as the first item of the list
+	  C206_CaseStudy.addCategory(listOfCategories, C1);
+	  assertEquals("Check that Category arraylist size is 1", 1, listOfCategories.size());
+	  assertSame("Check that Category is added", C1, listOfCategories.get(0));
+	  
+	  //Add another Category test The size of the list is 2? 
+	  //The item just added is as same as the second item of the list
+	  C206_CaseStudy.addCategory(listOfCategories, C2);
+	  assertEquals("Check that Category arraylist size is 2", 2, listOfCategories.size());
+	  assertSame("Check that Category is added", C2, listOfCategories.get(1));
+	 }
 
+	  @Test
+	  public void retrieveAllCategoryTest() {
+	    // Test if Category list is not null but empty 
+	    assertNotNull("Test if there is valid Category arraylist to retrieve item", listOfCategories);
+	    
+	    //test if the list of Category retrieved from the SourceCentre is empty 
+	    String viewCategory= C206_CaseStudy.retrieveCategories(listOfCategories);
+	    String testOutput = "";
+	    assertEquals("Check that ViewAllCategorylist", testOutput, viewCategory);
+	    
+	    //Given an empty list, after adding 2 items, test if the size of the list is 2 
+	    C206_CaseStudy.addCategory(listOfCategories, C1);
+	    C206_CaseStudy.addCategory(listOfCategories, C2);
+	    assertEquals("Test that Category arraylist size is 2", 2, listOfCategories.size());
+	    
+	    //test if the expected output string same as the list of categories retrieved from the SourceCentre  
+	    viewCategory= C206_CaseStudy.retrieveCategories(listOfCategories);
+	    testOutput = String.format("%-5s \n", "Mouse");
+	    testOutput += String.format("%-5s \n","Laptops" );
+	  
+	    //assertEquals("Test that ViewAllCategoryList", testOutput, viewCategory);
+	    
+	  }
+
+	@Test
+	  public void deleteCategoryTest() {
+	    //fail("Not yet implemented");
+	    // write your code here
+	    
+	    C206_CaseStudy.addCategory(listOfCategories,C1);
+	    C206_CaseStudy.addCategory(listOfCategories,C2);
+	    assertTrue(listOfCategories.get(0).isAvailableName());
+	    C206_CaseStudy.deleteCategory(listOfCategories, "Mouse");
+	    
+	    //System.out.println("Deleted " + listOfCategories.get(0).isAvailableName());
+	    assertEquals("Laptop",1,listOfCategories.size());
+	    
+	    assertEquals("Laptops",listOfCategories.get(0).getName());
+	  }
+	
 	@After
 	public void tearDown() throws Exception {
-	}
-
-	@Test
-	public void addDealTest() {
-		// Deal list is not null, so that can add a new deal
-		assertNotNull("Check if there is valid deal arraylist to add to", dealList);
-		
-		//Given an empty list, after adding 1 deal, the size of the list is 1
-		//The deal just added is as same as the first deal of the list
-		C206_CaseStudy.addDeal(dealList, d1);
-		assertEquals("Check that deal arraylist size is 1", 1, dealList.size());
-		assertSame("Check that deal is added", d1, dealList.get(0));
-		
-		//Add another deal. test The size of the list is 2?
-		//The deal just added is as same as the second deal of the list
-		C206_CaseStudy.addDeal(dealList, d2);
-		assertEquals("Check that deal arraylist size is 2", 2, dealList.size());
-		assertSame("Check that deal is added", d2, dealList.get(1));
-		
-		//Validate for highest that highest bider get the deal
-		assertTrue(C206_CaseStudy.validateDeal(bidList,d2));
-		C206_CaseStudy.doValidateDeal(C206_CaseStudy.validateDeal(bidList,d2));
-		assertSame("Check that deal is validated and added", d2,dealList.get(1));
-	}
-	
-	@Test
-	public void retrieveAllDealTest() {
-		
-		// Test if deal list is not null but empty -boundary
-		assertNotNull("Test if there is valid deal arraylist to retrieve deal", dealList);
-		
-		//test if the list of deals retrieved from the C206_CaseStudy is empty - boundary
-		String allDeals = C206_CaseStudy.retrieveAllDeal(dealList);
-		String testOutput = "";
-		assertEquals("Check that ViewAllDeallist is empty", testOutput, allDeals);
-		
-		//Given an empty list, after adding 2 deals, test if the size of the list is 2 - normal
-		C206_CaseStudy.addDeal(dealList, d1);
-		C206_CaseStudy.addDeal(dealList, d2);
-		assertEquals("Test that deal arraylist size is 2", 2, dealList.size());
-		
-		//test if the expected output string same as the list of deals retrieved from C206_CaseStudy	
-		allDeals = C206_CaseStudy.retrieveAllDeal(dealList);
-		testOutput = String.format("%-10s %-20s %-20s %-20s %-20s %-10s\n","1", "VIVO HDR-ZX605", "pear@gmail.com","buyer1@gmail.com","20.50","4/8/2021");
-		testOutput += String.format("%-10s %-20s %-20s %-20s %-20s %-10s\n","2","Sony HDR-CX405", "apple@gmail.com","buyer2@gmail.com","40.50","5/8/2021");
-
-		assertEquals("Test that ViewAllDeallist is the same", testOutput, allDeals);
-		
-	}
-	
-	@Test
-	public void deleteDealTest() {
-
+		//================Category=================
+		C1 = null;
+	    C2 = null;
+	    listOfCategories = null;
 	}
 
 }
